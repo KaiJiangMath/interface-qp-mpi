@@ -1,1 +1,0 @@
-# interface-qp-mpi
