@@ -1,0 +1,231 @@
+%-------------------------------------------------------%
+%		input parameters: interface framework			%
+%		lines starting with % are comments				%
+%		must have spaces around the equal sign "="		%
+%-------------------------------------------------------%
+
+%% the type of main code, including 
+%%		stable_system:	stable interface system;
+%%	load_stable_system:	stable interface system by loading existing files;
+%%		stable_bulk1:	stable left  bulk phase;
+%%		stable_bulk2:	stable right bulk phase;
+%%		stable_bulk1_parallel:	stable left  bulk phase computed by a parallel code;
+%%		stable_bulk2_parallel:	stable right bulk phase computed by a parallel code;
+%%		proj_bulk1:		project left bulk phase;
+%%		proj_bulk2:		project right bulk phase;
+%%		com_bulk1:		left  bulk phase in the common space;
+%%		com_bulk2:		right bulk phase in the common space;
+%%		com_projmat:	the common projection matrix;
+%%		disp_density:	display densities according the files;
+%%		collect:		collect all data for interface system;
+%%		recover:		recover density profile by the screened spectra;
+
+main_type			= stable_system
+%main_type			= load_stable_system
+%main_type			= stable_bulk1
+%main_type			= stable_bulk1_parallel
+%main_type			= proj_bulk1
+%main_type			= com_bulk1
+%main_type			= com_projmat
+%main_type			= disp_density
+%main_type			= collect
+%main_type			= recover
+
+
+%-------------------------------------------------------%
+%		model parameters including length scales	    %
+%-------------------------------------------------------%
+
+model_type			= LB	% the type of Landau model; LB/LP;
+iter_method			= APG	% the iteration method; SIS, APG, nAPG;
+print_level			= 5		% 0 is not displayed;
+
+scale_num			= 2		% the number of length scales;
+%% the values of length scale;
+scale_val			= 1.0	1.93185165257813662443
+
+model_xi			= 1.0	% the penalty factor; such as \xi^2/2 [(\Delta+1)\phi]^2;
+model_tau			= 0.015	% the coefficient before quadratic term;
+model_gamma			= 1.0	% the coefficient before cubic term;
+model_kappa			= 1.0	% the coefficient before quartic term;
+
+
+%-------------------------------------------------------%
+%			parameters for left bulk phase				%
+%-------------------------------------------------------%
+
+bulk1_phase			= BCC	% the type of the left bulk phase;
+bulk1_print_level	= 5		% 0 is not displayed;
+
+bulk1_motion_order	= rotate_transl	% rotate, then translate; translate, then rotate;
+bulk1_rotate_order	= zii	% the rotation order; i: identity; x: around x-axis;
+
+%% rotation angles whose rule is determined 'rotate_order';
+bulk1_rotate_angle	= 0.0	0.0		0.0
+
+%% directly input rotation matrix by bulk1_rotate_order = direct;
+bulk1_rotateMat		= 
+
+%% translation along x,y,z-direction;
+bulk1_transl_var	= 0.0	0.0		0.0
+
+bulk1_Four_num		= 20	% the number of Fourier discrete points along each direction;
+bulk1_enlarge		= 4		% enlarge the plotting range for bulk phase;
+bulk1_plot_num		= 64	% the number of plotting points along each direction;
+
+bulk1_tol			= 1.0	-6	% the maximal tolerance error; such as 1.0e-6;
+bulk1_step_size		= 0.1	% the time steeping size;
+bulk1_iter_max		= 10000	% the maximal iterator;
+bulk1_print_step	= 100	% the stepping size for printing data;
+bulk1_save_step		= 1000	% the stepping size for saving data;
+bulk1_save_type		= nnn	% followed by Fourier coefficients, density, plane wave; y: yes; n: no; 
+
+bulk1_opt_tol		= 1.0	-6 % the maximal tolerance energy error of optimization;
+bulk1_opt_iter_max	= 0		% the maximal iterator of optimization;
+bulk1_opt_save_step	= 10	% the stepping size for saving data in optimization;
+bulk1_box_bbType	= 1		% the type of BB stepping size in box optimization;
+bulk1_box_iter_max	= 50	% the maximal iterator in box optimization;
+bulk1_box_step_size	= 0.1	% the initial stepping size in box optimization;
+bulk1_box_tol		= 1.0	-6	% the maximal tolerance error in box optimization;
+
+bulk1_trunc_tol		= 1.0	-10	% the maximal tolerance error for truncation; such as 1.0e-10;
+
+
+%-------------------------------------------------------%
+%			parameters for right bulk phase				%
+%-------------------------------------------------------%
+
+bulk2_phase			= BCC	% the type of the right bulk phase;
+bulk2_print_level	= 5		% 0 is not displayed;
+
+bulk2_motion_order	= transl_rotate	% rotate, then translate; translate, then rotate;
+bulk2_rotate_order	= zii	% the rotation order; i: identity; x: around x-axis;
+
+%% rotation angles whose rule is determined 'rotate_order';
+bulk2_rotate_angle	= 0.0	0.0		0.0
+
+%% directly input rotation matrix by bulk2_rotate_order = direct;
+bulk2_rotateMat		= 
+
+%% translation along x,y,z-direction;
+bulk2_transl_var	= 0.0	0.0		0.0
+
+bulk2_Four_num		= 20	% the number of Fourier discrete points along each direction;
+bulk2_enlarge		= 4		% enlarge the plotting range for bulk phase;
+bulk2_plot_num		= 64	% the number of plotting points along each direction;
+
+bulk2_tol			= 1.0	-6	% the maximal tolerance error; such as 1.0e-6;
+bulk2_step_size		= 0.1	% the time steeping size;
+bulk2_iter_max		= 10000	% the maximal iterator;
+bulk2_print_step	= 100	% the stepping size for printing data;
+bulk2_save_step		= 1000	% the stepping size for saving data;
+bulk2_save_type		= nnn	% followed by Fourier coefficients, density, plane wave; y: yes; n: no; 
+
+bulk2_opt_tol		= 1.0	-6 % the maximal tolerance energy error of optimization;
+bulk2_opt_iter_max	= 0		% the maximal iterator of optimization;
+bulk2_opt_save_step	= 10	% the stepping size for saving data in optimization;
+bulk2_box_bbType	= 1		% the type of BB stepping size in box optimization;
+bulk2_box_iter_max	= 50	% the maximal iterator in box optimization;
+bulk2_box_step_size	= 0.1	% the initial stepping size in box optimization;
+bulk2_box_tol		= 1.0	-6	% the maximal tolerance error in box optimization;
+
+bulk2_trunc_tol		= 1.0	-10	% the maximal tolerance error for truncation; such as 1.0e-10;
+
+
+%-------------------------------------------------------%
+%		the way to get the common projection matrix		%
+%-------------------------------------------------------%
+
+%% com_projmat_way = calculate: calculate the common projection matrix;
+%% com_projmat_way = direct:	directly input the common projection matrix;
+
+com_projmat_way		= calculate	
+com_projmat_size	= 2		2
+com_projmat_mat		=
+0.707106781186547	 0.000000000000000
+0.000000000000000	 0.707106781186547
+
+
+%-------------------------------------------------------%
+%			spatial discrete parameters					%
+%		parameters for interface framework				%
+%-------------------------------------------------------%
+
+GJP_degree			= 256	% the degree of General Jacobi Polynomial up to GJP_degree; (Nx)
+LGL_num				= 512	% the number of Legendre Gauss-Lobatto points; i.e. discrete x; (Mx)
+Four_num			= 20	% the number of Fourier discrete points along each direction;
+
+%% the distance between the two anchoring planes;
+%% x_range_type = direct	directly input x_range; (* 2);
+%% x_range_type = cubePlane		input the x_range according to dirBox and rotation angles; (* 2);
+x_range_type		= direct
+x_range				= 5.0
+
+smooth				= 0.1	% the smooth constant to connect the two bulk phases;
+initDist1			= 0.0	% the end position of the left bulk phase (initial value);
+initDist2			= 0.0	% the end position of the right bulk phase (initial value);
+searchReg			= 40	% the searching range of the computation of common matrix;
+adjustReg			= 20	% the adjust range in the test of common 'rotateProjBoxMat';
+
+
+%-------------------------------------------------------%
+%		iteration parameters for interface framework	%
+%-------------------------------------------------------%
+
+massFlag			= 1		% the flag of mass conservation; default 1 for forced mass conservation;
+tol					= 1.0	-6	% the maximal tolerance error; such as 1.0e-6;
+step_size			= 0.1	% the time steeping size;
+step_min			= 0.01	% the lower bound of time steeping size;
+step_max			= 1.0	% the upper bound of time steeping size;
+iter_load			= 10	% the loading iterator;
+iter_max			= 10000	% the maximal iterator;
+print_step			= 1		% the stepping size for printing data;
+save_step			= 1000	% the stepping size for saving data;
+save_type			= ynn	% followed by rhoJCplx, density, vtk density; y: yes; n: no; 
+
+
+%-------------------------------------------------------%
+%		iteration parameters for Newton-PCG method		%
+%-------------------------------------------------------%
+
+newton_tol			= 1.0	-5	% the maximal tolerance error; such as 1.0e-6;
+newton_step_size	= 2.0	% the time steeping size of Newton method;
+
+pcg_type			= 0;	% the type of pre-conditioner;
+pcg_delta_coeff		= 0.7;	% the coefficient of delta in the calculation of pre-conditioner;
+pcg_mu_para			= 2.0;	% the initial 'mu_para' for pre-conditioner;
+pcg_iter_max		= 100;	% the maximal iteration of PCG;
+pcg_print_step		= 10;	% the stepping size for printing data in the calculation of PCG;
+
+
+%-------------------------------------------------------%
+%		plotting parameters for interface framework		%
+%-------------------------------------------------------%
+
+y_start				= 0		% the start of plotting interface along y-direction;
+z_start				= 0		% the start of plotting interface along z-direction;
+y_range			    = 5		% the plot range along y-direction;
+z_range				= 5		% the plot range along z-direction for 3D phases;
+y_num				= 128	% the number of discrete points along y-direction;
+z_num				= 128	% the number of discrete points along z-direction;
+skip_half			= 0		% 1 to skip the half of Four_num in plotting, default 0;
+
+
+%-------------------------------------------------------%
+%			parameters for representing error			%
+%-------------------------------------------------------%
+
+err_y_start			= 0		% the start of plotting interface along y-direction;
+err_z_start			= 0		% the start of plotting interface along z-direction;
+err_y_range			= 10	% the plot range along y-direction;
+err_z_range			= 10	% the plot range along z-direction for 3D phases;
+err_y_num			= 8		% the number of discrete points along y-direction;
+err_z_num			= 8		% the number of discrete points along z-direction;
+
+
+%-------------------------------------------------------%
+%			parameters for representing error			%
+%-------------------------------------------------------%
+
+recoverTOL			= 1.0	-4	% the maximal spectra mode; such as 1.0e-4;
+
